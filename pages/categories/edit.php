@@ -21,8 +21,6 @@ if (!$check) {
 $row = mysqli_fetch_assoc($result);
 
 
-
-
 ?>
 
 <h1 class="text-center col-12 bg-info py-3 text-white my-2">Edit Category</h1>

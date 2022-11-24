@@ -15,6 +15,12 @@
             <li class="nav-item">
                <a class="nav-link" href="<?php echo URL ?>pages/categories/create.php">Add Category</a>
             </li>
+            <li class="nav-item">
+               <a class="nav-link" href="<?php echo URL ?>pages/products/index.php">Products</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" href="<?php echo URL ?>pages/products/create.php">Add Product</a>
+            </li>
          </ul>
       </div>
    </div>

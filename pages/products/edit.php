@@ -8,6 +8,8 @@
 
 $id = $_GET['id'];
 $row = getRow("products", $id);
+echo "<pre>";
+print_r($row);
 
 
 ?>

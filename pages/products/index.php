@@ -27,9 +27,11 @@ $result = mysqli_query($conn, $sql);
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Image</th>
                         <th>Name</th>
                         <th>Category</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Image</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
@@ -43,13 +45,15 @@ $result = mysqli_query($conn, $sql);
                         ?>
                         <tr>
                             <td><?php echo $i++; ?></td>
-                            <td>
-                                <img height="200px" width="200px" src="<?php echo URL ?>assets/uploads/<?php echo ($row['image']); ?>" alt="prod_image" />
-                            </td>
                             <td><?php echo $row['prod_name']; ?></td>
                             <td><?php echo $row['cat_name']; ?></td>
+                            <td><?php echo $row['description']; ?></td>
+                            <td><?php echo $row['price']; ?> $</td>
                             <td>
-                                <a href="<?php echo URL . "pages/products/edit.php?id=" . $row['id']; ?>" class="btn btn-info">Edit</a>
+                                <img height="100" width="100" src="<?php echo URL ?>assets/uploads/<?php echo ($row['image']); ?>" alt="prod_image" />
+                            </td>
+                            <td>
+                                <a href="<?php echo URL . "pages/products/edit.php?id=" . $row['id']; ?>" class="btn btn-info text-white">Edit</a>
                             </td>
                             <td>
                                 <a href="<?php echo URL . "controllers/products/delete.php?id=" . $row['id']; ?>" class="btn btn-danger">Delete</a>

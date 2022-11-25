@@ -17,7 +17,10 @@
                     <label for="">Product Name</label>
                     <input type="text" name="name" class="form-control">
                 </div>
-
+                <?php if (isset($_SESSION['error'])) : ?>
+                    <h5 class="alert alert-danger text-center"><?php echo $_SESSION['error'] ?></h5>
+                <?php endif;
+                unset($_SESSION['error']); ?>
                 <div class="mb-3">
                     <label for="">Category Name</label>
                     <select name="category_id" class="form-control">

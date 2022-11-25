@@ -1,7 +1,6 @@
 <?php
 
-$error = '';
-$success = '';
+session_start();
 
 function requiredInput($value)
 {

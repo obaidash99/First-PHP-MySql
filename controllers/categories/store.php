@@ -8,38 +8,28 @@
 
 <?php
 
+
 if (isset($_POST['submit'])) {
    $name = sanetizeInput($_POST['name']);
 
    if (requiredInput($name) && !is_numeric($name)) {
       if (minInput($name, 3) && maxInput($name, 25)) {
          $sql = "INSERT INTO `categories` (`name`) VALUES ('$name') ";
-         $result = mysqli_query($conn, $sql);
+         $result = insert($sql);
 
          if ($result) {
-            $success = "Added Successfully";
+            $_SESSION['success_cat'] = "Added Successfully";
+            redirect('pages/categories/index.php');
          }
       } else {
-         $error = 'Category Name must be between 3 and 25 chars';
+         $_SESSION['error_cat'] = 'Category Name must be between 3 and 25 chars';
+         redirect('pages/categories/create.php');
       }
    } else {
-      $error = "Category Name required! / Category Must be a Valid Name";
+      $_SESSION['error_cat'] = "Category Name required! / Category Must be a Valid Name";
+      redirect('pages/categories/create.php');
    }
 }
 ?>
 
-
-<?php if ($error) : ?>
-   <h5 class="alert alert-danger text-center"><?php echo $error ?></h5>
-   <a href="javascript:history.go(-1)" class="btn btn-primary">
-      << Go Back</a>
-      <?php endif; ?>
-
-      <?php if ($success) : ?>
-         <h5 class="alert alert-success text-center"><?php echo $success ?></h5>
-         <a href="<?php URL ?>pages/categories/index.php" class="btn btn-primary">
-            << Go Back</a>
-            <?php endif; ?>
-
-
-            <?php require_once ROOT_PATH . 'pages/inc/footer.php' ?>
+<?php require_once ROOT_PATH . 'pages/inc/footer.php' ?>

@@ -6,6 +6,21 @@
 
 <h1 class="text text-center bg-primary text-white p-3">Add New Category</h1>
 
+<?php
+
+// To check if the name entered already in the database
+
+// $sql = "SELECT `name` FROM `categories` ";
+// $result = mysqli_query($conn, $sql);
+
+// $rows = mysqli_fetch_assoc($result);
+
+// echo "<pre>";
+// print_r($result);
+
+
+
+?>
 
 <?php if (isset($_SESSION['error_cat'])) : ?>
    <h5 class="alert alert-danger text-center"><?php echo $_SESSION['error_cat'] ?></h5>

@@ -8,7 +8,6 @@
 
 <?php
 
-
 if (isset($_POST['submit'])) {
    $name = sanetizeInput($_POST['name']);
 

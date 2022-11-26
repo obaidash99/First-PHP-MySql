@@ -6,6 +6,8 @@
 
 <?php
 
+session_start();
+
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
    redirect("pages/categories/index.php");
 }
@@ -13,6 +15,7 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 $id = $_GET['id'];
 $sql = "SELECT * FROM `categories` WHERE `id` = '$id' LIMIT 1";
 $result = mysqli_query($conn, $sql);
+
 $check = mysqli_num_rows($result);
 
 if (!$check) {
@@ -21,20 +24,19 @@ if (!$check) {
 
 $row = mysqli_fetch_assoc($result);
 
-
 ?>
 
 <h1 class="text-center col-12 bg-info py-3 text-white my-2">Edit Category</h1>
 
 
 <?php if (isset($_SESSION['error_update'])) : ?>
-   <h5 class="alert alert-danger text-center"><?php echo $_SESSION['error_update']; ?></h5>
+   <h5 class="alert alert-danger text-center"><?php echo $_SESSION['error_update'] ?></h5>
 <?php
    unset($_SESSION['error_update']);
 endif; ?>
 
 <?php if (isset($_SESSION['success_update'])) : ?>
-   <h5 class="alert alert-success text-center"><?php echo $_SESSION['success_update']; ?></h5>
+   <h5 class="alert alert-success text-center"><?php echo $_SESSION['success_update'] ?></h5>
 <?php
    unset($_SESSION['success_update']);
 endif; ?>
@@ -51,6 +53,8 @@ endif; ?>
 
 
       <button type="submit" class="btn btn-primary" name="submit">Edit Category</button>
+      <a href="<?php echo URL ?>pages/categories/index.php" class="btn btn-info text-white">Categories Page</a>
+
    </form>
 </div>
 

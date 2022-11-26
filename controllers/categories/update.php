@@ -19,15 +19,15 @@ if (isset($_POST['submit'])) {
 
          if ($result) {
             $_SESSION['success_update'] = "Updated Successfully";
-            redirect("pages/categories/index.php");
+            redirect("pages/categories/edit.php?id=" . $id);
          }
       } else {
          $_SESSION['error_update'] = 'Category Name must be between 3 and 25 chars';
-         redirect("pages/categories/edit.php");
+         redirect("pages/categories/edit.php?id=" . $id);
       }
    } else {
       $_SESSION['error_update'] = "Category Name required! / Category Name Muat be Valid";
-      redirect("pages/categories/edit.php");
+      redirect("pages/categories/edit.php?id=" . $id);
    }
 }
 

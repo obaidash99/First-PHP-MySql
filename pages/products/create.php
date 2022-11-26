@@ -9,7 +9,7 @@ session_start();
 ?>
 
 
-<h1 class="text text-center bg-success text-white p-3">Add New Product!</h1>
+<h1 class="text text-center bg-info text-white p-3">Add New Product!</h1>
 
 <?php if (isset($_SESSION['error'])) : ?>
     <h5 class="alert alert-danger text-center"><?php echo $_SESSION['error'] ?></h5>
@@ -50,7 +50,7 @@ unset($_SESSION['success']); ?>
                     <input type="file" name="image" class="form-control">
                 </div>
                 <div class="mb-3">
-                    <input type="submit" class="form-control bg-success text-white">
+                    <input type="submit" class="form-control bg-info text-white">
                 </div>
             </form>
         </div>

@@ -7,7 +7,7 @@
 <?php $result = selectAll("categories"); ?>
 
 
-<h1>Add New Product!</h1>
+<h1 class="text text-center bg-success text-white p-3">Add New User!</h1>
 
 <div class="container">
     <div class="row">
@@ -42,7 +42,7 @@
                     <input type="file" name="image" class="form-control">
                 </div>
                 <div class="mb-3">
-                    <input type="submit" class="form-control bg-success">
+                    <input type="submit" class="form-control bg-success text-white">
                 </div>
             </form>
         </div>

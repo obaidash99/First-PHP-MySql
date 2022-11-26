@@ -4,7 +4,7 @@
 <?php require_once ROOT_PATH . 'pages/inc/header.php' ?>
 <?php require_once ROOT_PATH . 'pages/inc/navbar.php'; ?>
 
-<h1 class="text text-center bg-primary text-white p-3">Add New Category</h1>
+<h1 class="text text-center bg-info text-white p-3">Add New Category</h1>
 
 <?php
 

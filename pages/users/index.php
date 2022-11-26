@@ -18,7 +18,7 @@ $result = mysqli_query($conn, $sql);
 
 
 
-<h1>Show Products</h1>
+<h1 class="text text-center bg-success text-white p-3">All Users</h1>
 
 <div class="container">
     <div class="row">
@@ -53,7 +53,7 @@ $result = mysqli_query($conn, $sql);
                                 <img height="100" width="100" src="<?php echo URL ?>assets/uploads/<?php echo ($row['image']); ?>" alt="prod_image" />
                             </td>
                             <td>
-                                <a href="<?php echo URL . "pages/products/edit.php?id=" . $row['id']; ?>" class="btn btn-info text-white">Edit</a>
+                                <a href="<?php echo URL . "pages/products/edit.php?id=" . $row['id']; ?>" class="btn btn-success text-white">Edit</a>
                             </td>
                             <td>
                                 <a href="<?php echo URL . "controllers/products/delete.php?id=" . $row['id']; ?>" class="btn btn-danger">Delete</a>

@@ -9,44 +9,48 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 
     // Image Validation
-    $image_name = $_FILES['image']['name'];
-    $temp_name = $_FILES['image']['tmp_name'];
+    // $image_name = $_FILES['image']['name'];
+    // $temp_name = $_FILES['image']['tmp_name'];
 
-    $f_type = $file['type'];
-    $f_tmp_name = $file['tmp_name'];
-    $f_error = $file['error'];
-    $f_size = $file['size'];
+    // $file = $_FILES['image'];
 
-    if ($image_name != '') {
-        $ext = pathinfo($image_name);
-        $original_name = $ext['filename'];
-        $original_extension = $ext['extension'];
+    // $f_error = $file['error'];
+    // $f_size = $file['size'];
 
-        $allowed = ["png", "jpg", "jpeg", "gif"];
+    // if ($image_name != '') {
+    //     $ext = pathinfo($image_name);
+    //     $original_name = $ext['filename'];
+    //     $original_extension = $ext['extension'];
 
-        if (in_array($original_extension, $allowed)) {
+    //     $allowed = ["png", "jpg", "jpeg", "gif"];
 
-            if ($f_error == 0) {
-                if ($f_size < 5000000) {
-                    $new_name = uniqid("", true) . "." . $original_extension;
-                    $destination = "imgs/" . $new_name;
+    //     if (in_array($original_extension, $allowed)) {
 
-                    move_uploaded_file($temp_name, URL . 'assets/uploads/products/' . $image_name);
-                    
-                    $_SESSION['success'] = "File uploaded Syccessfuly!";
-                } else {
-                    $_SESSION['error'] = "File is too Big!";
-                }
-            } else {
-                $_SESSION['error'] = "Error!";
-            }
-        } else {
-            $_SESSION['error'] = 'File not allowed!';
-        }
-    } else {
-        $_SESSION['error'] = 'Please choose an image!';
-        return false;
-    }
+    //         if ($f_error == 0) {
+    //             if ($f_size < 5000000) {
+    //                 $new_name = uniqid("", true) . "." . $original_extension;
+    //                 $destination = "imgs/" . $new_name;
+
+    //                 move_uploaded_file($temp_name, URL . 'assets/uploads/' . $image_name);
+
+    //                 $_SESSION['success'] = "File uploaded Syccessfuly!";
+    //                 redirect('pages/products/create.php');
+    //             } else {
+    //                 $_SESSION['error'] = "File is too Big!";
+    //                 redirect('pages/products/create.php');
+    //             }
+    //         } else {
+    //             $_SESSION['error'] = "Error!";
+    //             redirect('pages/products/create.php');
+    //         }
+    //     } else {
+    //         $_SESSION['error'] = 'File not allowed!';
+    //         redirect('pages/products/create.php');
+    //     }
+    // } else {
+    //     $_SESSION['error'] = 'Please choose an image!';
+    //     redirect('pages/products/create.php');
+    // }
 
     // store
     $name = sanetizeInput($_POST['name']);
@@ -64,17 +68,66 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                 if (requiredInput($description) && !is_numeric($description) && minInput($description, 3)) {
 
-                    $sql = "INSERT INTO `products` (`name`, `price`, `category_id`, `description`, `image`)
-                            VALUES('$name','$price','$category_id','$description','$image_name') ";
 
-                    $result = insert($sql);
-                    if ($result) {
-                        $_SESSION['success'] = 'Data Inserted Sucessfully';
-                        redirect('pages/products/create.php');
+                    $image_name = $_FILES['image']['name'];
+                    $temp_name = $_FILES['image']['tmp_name'];
+
+                    $file = $_FILES['image'];
+
+                    $f_error = $file['error'];
+                    $f_size = $file['size'];
+
+                    if (
+                        $image_name != ''
+                    ) {
+                        $ext = pathinfo($image_name);
+                        $original_name = $ext['filename'];
+                        $original_extension = $ext['extension'];
+
+                        $allowed = ["png", "jpg", "jpeg", "gif"];
+
+                        if (in_array($original_extension, $allowed)) {
+
+                            if (
+                                $f_error == 0
+                            ) {
+                                if ($f_size < 5000000) {
+                                    $new_name = uniqid("", true) . "." . $original_extension;
+                                    $destination = "imgs/" . $new_name;
+
+                                    move_uploaded_file($temp_name, URL . 'assets/uploads/' . $image_name);
+
+                                    $sql = "INSERT INTO `products` (`name`, `price`, `category_id`, `description`, `image`)
+                                            VALUES('$name','$price','$category_id','$description','$image_name') ";
+
+                                    $result = insert($sql);
+                                    if ($result) {
+                                        $_SESSION['success'] = 'Data Inserted Sucessfully';
+                                        redirect('pages/products/create.php');
+                                    } else {
+                                        $_SESSION['error'] = "Error While Instering to Database";
+                                        die(mysqli_info($conn));
+                                    }
+
+                                    $_SESSION['success'] = "File uploaded Syccessfuly!";
+                                    redirect('pages/products/create.php');
+                                } else {
+                                    $_SESSION['error'] = "File is too Big!";
+                                    redirect('pages/products/create.php');
+                                }
+                            } else {
+                                $_SESSION['error'] = "Error!";
+                                redirect('pages/products/create.php');
+                            }
+                        } else {
+                            $_SESSION['error'] = 'File not allowed!';
+                            redirect('pages/products/create.php');
+                        }
                     } else {
-                        $_SESSION['error'] = "Error While Instering to Database";
-                        die(mysqli_info($conn));
+                        $_SESSION['error'] = 'Please choose an image!';
+                        redirect('pages/products/create.php');
                     }
+
                 } else {
                     $_SESSION['error'] = 'Description is Required! & Must be More than 20 chars';
                     redirect('pages/products/create.php');

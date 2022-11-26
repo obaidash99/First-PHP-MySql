@@ -18,7 +18,7 @@ $result = mysqli_query($conn, $sql);
 
 
 
-<h1>Show Products</h1>
+<h1 class="text-center col-12 bg-info py-3 text-white my-2">Show Products</h1>
 
 <div class="container">
     <div class="row">

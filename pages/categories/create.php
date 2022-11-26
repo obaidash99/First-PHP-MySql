@@ -33,6 +33,7 @@ endif;
       </div>
 
       <button type="submit" class="btn btn-primary" name="submit">Add Category</button>
+      <a href="<?php echo URL ?>pages/categories/index.php" class="btn btn-info text-white">Categories Page</a>
    </form>
 </div>
 

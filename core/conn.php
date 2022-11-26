@@ -29,6 +29,13 @@ function getRow($table, $id)
    return mysqli_fetch_assoc($result);
 }
 
+function deleteRow($table, $id)
+{
+   global $conn;
+   $sql = "DELETE FROM `$table` WHERE `id`='$id' ";
+   $result = mysqli_query($conn, $sql);
+   return mysqli_fetch_assoc($result, true);
+}
 
 function selectAll($table)
 {

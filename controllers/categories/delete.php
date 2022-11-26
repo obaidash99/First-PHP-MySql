@@ -26,6 +26,6 @@ mysqli_query($conn, $sql2);
 
 <h1 class="text-center col-12 bg-danger py-3 text-white my-2">Deleted Successfully</h1>
 
-<?php redirectWithWaitTime("pages/categories/index.php", 3); ?>
+<?php redirectWithWaitTime("pages/categories/index.php", 2); ?>
 
 <?php require_once ROOT_PATH . 'pages/inc/footer.php' ?>

@@ -26,19 +26,21 @@ $row = mysqli_fetch_assoc($result);
 
 <h1 class="text-center col-12 bg-info py-3 text-white my-2">Edit Category</h1>
 
+
+<?php if (isset($_SESSION['error_update'])) : ?>
+   <h5 class="alert alert-danger text-center"><?php echo $_SESSION['error_update']; ?></h5>
+<?php
+   unset($_SESSION['error_update']);
+endif; ?>
+
+<?php if (isset($_SESSION['success_update'])) : ?>
+   <h5 class="alert alert-success text-center"><?php echo $_SESSION['success_update']; ?></h5>
+<?php
+   unset($_SESSION['success_update']);
+endif; ?>
+
+
 <div class="col-md-6 offset-md-3">
-
-   <?php if (isset($_SESSION['error_update'])) : ?>
-      <h5 class="alert alert-danger text-center"><?php echo $_SESSION['error_update'] ?></h5>
-   <?php
-      unset($_SESSION['error_update']);
-   endif; ?>
-
-   <?php if (isset($_SESSION['success_update'])) : ?>
-      <h5 class="alert alert-success text-center"><?php echo $_SESSION['success_update'] ?></h5>
-   <?php
-      unset($_SESSION['success_update']);
-   endif; ?>
 
    <form action="<?php echo URL ?>controllers/categories/update.php" method="POST" class="my-2 p-3 border">
       <div class="form-group my-3">

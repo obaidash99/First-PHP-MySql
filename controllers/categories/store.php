@@ -19,7 +19,7 @@ if (isset($_POST['submit'])) {
 
          if ($result) {
             $_SESSION['success_cat'] = "Added Successfully";
-            redirect('pages/categories/index.php');
+            redirect('pages/categories/create.php');
          }
       } else {
          $_SESSION['error_cat'] = 'Category Name must be between 3 and 25 chars';

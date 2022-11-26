@@ -1,12 +1,9 @@
 <?php
-
-use LDAP\Result;
-
 require_once '../../core/config.php';
-require_once ROOT_PATH.'core/conn.php';
+require_once ROOT_PATH . 'core/conn.php';
 
 
-if($_SERVER['REQUEST_METHOD'] == "GET"){
+if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
     // var_dump($_POST);
     // sanitization 
@@ -17,21 +14,16 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
     $id = $_GET['id'];
 
 
-    
+
     $id = $_GET['id'];
-    $result = getRow('categories',$id);
+    $result = getRow('categories', $id);
 
-    if($result){
-        $result = deleteRow("categories",$id);
-        if($result){
+    if ($result) {
+        $result = deleteRow("categories", $id);
+        if ($result) {
             echo "data DELETED successfully";
-        }else{
-            die("error in inserting to database : ".mysqli_error($conn));
+        } else {
+            die("error in inserting to database : " . mysqli_error($conn));
         }
-
     }
-
-    
-    
-
 }

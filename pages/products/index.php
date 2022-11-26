@@ -1,18 +1,19 @@
 <?php require_once '../../core/config.php'; ?>
 <?php require_once ROOT_PATH . 'core/conn.php'; ?>
+<?php require_once ROOT_PATH . 'pages/inc/header.php'; ?>
+<?php require_once ROOT_PATH . 'pages/inc/navbar.php'; ?>
 <?php
 
 // $result = selectAll("products");
 
-$sql = "SELECT *,products.id AS prod_id , categories.id AS cat_id, products.name AS prod_name,categories.name AS cat_name FROM `products` 
-    INNER JOIN `categories` 
-    ON `categories`.`id` = `products`.`category_id` ";
+$sql = "SELECT *,products.id AS prod_id, categories.id AS cat_id, products.name AS prod_name,categories.name AS cat_name 
+        FROM `products` 
+        INNER JOIN `categories` 
+        ON `categories`.`id` = `products`.`category_id` ";
 $result = mysqli_query($conn, $sql);
 
 
 ?>
-<?php require_once ROOT_PATH . 'pages/inc/header.php'; ?>
-<?php require_once ROOT_PATH . 'pages/inc/navbar.php'; ?>
 
 
 
@@ -31,6 +32,7 @@ $result = mysqli_query($conn, $sql);
                         <th>Category</th>
                         <th>Description</th>
                         <th>Price</th>
+                        <th>ID</th>
                         <th>Image</th>
                         <th>Edit</th>
                         <th>Delete</th>
@@ -41,22 +43,21 @@ $result = mysqli_query($conn, $sql);
 
                     <?php $i = 1;
                     while ($row = mysqli_fetch_assoc($result)) : ?>
-                        <?php // echo "<pre>"; print_r($row); die; 
-                        ?>
                         <tr>
-                            <td><?php echo $i++; ?></td>
+                            <td><?php echo $i++ ?></td>
                             <td><?php echo $row['prod_name']; ?></td>
                             <td><?php echo $row['cat_name']; ?></td>
                             <td><?php echo $row['description']; ?></td>
                             <td><?php echo $row['price']; ?> $</td>
+                            <td><?php echo $row['prod_id']; ?></td>
                             <td>
                                 <img height="100" width="100" src="<?php echo URL ?>assets/uploads/<?php echo ($row['image']); ?>" />
                             </td>
                             <td>
-                                <a href="<?php echo URL . "pages/products/edit.php?id=" . $row['id']; ?>" class="btn btn-info text-white">Edit</a>
+                                <a href="<?php echo URL ?>pages/products/edit.php?id=<?php echo $row['prod_id']; ?>" class="btn btn-info text-white">Edit</a>
                             </td>
                             <td>
-                                <a href="<?php echo URL . "controllers/products/delete.php?id=" . $row['id']; ?>" class="btn btn-danger">Delete</a>
+                                <a href="<?php echo URL ?>pages/products/delete.php?id=<?php echo $row['prod_id']; ?>" class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
                     <?php endwhile; ?>

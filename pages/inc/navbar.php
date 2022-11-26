@@ -21,7 +21,14 @@
             <li class="nav-item">
                <a class="nav-link" href="<?php echo URL ?>pages/products/create.php">Add Product</a>
             </li>
+            <li class="nav-item">
+               <a class="nav-link" href="<?php echo URL ?>pages/users/index.php">Users</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" href="<?php echo URL ?>pages/users/create.php">Add User</a>
+            </li>
          </ul>
+         
       </div>
    </div>
 </nav>

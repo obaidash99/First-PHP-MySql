@@ -27,7 +27,7 @@ $sql = "CREATE TABLE `categories`(
 
 // $result = mysqli_query($conn, $sql);
 
-$sql3 = "CREATE TABLE `products`(
+$sql3 = "CREATE TABLE IF NOT EXISTS `products`(
    `id` INT PRIMARY KEY AUTO_INCREMENT,
    `category_id` INT NOT NULL,
    `name` VARCHAR(100) NOT NULL,
@@ -38,3 +38,13 @@ $sql3 = "CREATE TABLE `products`(
 ) ";
 
 $result = mysqli_query($conn, $sql3);
+
+$sql = "CREATE  TABLE IF NOT EXISTS  `users`(
+      `id` INT PRIMARY KEY AUTO_INCREMENT,
+      `name` VARCHAR(100) NOT NULL,
+      `email` VARCHAR(100) UNIQUE  NOT NULL,
+      `image` VARCHAR(200) ,
+      `password` VARCHAR(100)   NOT NULL,
+      `type` BOOLEAN DEFAULT 0
+) ";
+$result = mysqli_query($conn, $sql);

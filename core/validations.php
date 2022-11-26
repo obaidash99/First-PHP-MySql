@@ -57,3 +57,45 @@ function validEmail($email)
    };
    return false;
 }
+
+
+// Image validate 
+function imgValid($image) {
+   // Image Validation
+   $image_name = $_FILES['image']['name'];
+   $temp_name = $_FILES['image']['tmp_name'];
+
+   $f_type = $file['type'];
+   $f_tmp_name = $file['tmp_name'];
+   $f_error = $file['error'];
+   $f_size = $file['size'];
+
+   if ($image_name != '') {
+      $ext = pathinfo($image_name);
+      $original_name = $ext['filename'];
+      $original_extension = $ext['extension'];
+
+      $allowed = ["png", "jpg", "jpeg", "gif"];
+
+      if (in_array($original_extension, $allowed)) {
+
+         if ($f_error == 0) {
+            if ($f_size < 5000000) {
+               $new_name = uniqid("", true) . "." . $original_extension;
+               $destination = "imgs/" . $new_name;
+
+               move_uploaded_file($temp_name, URL . 'assets/uploads/products/' . $image_name);
+               $_SESSION['success'] = "File uploaded Syccessfuly!";
+            } else {
+               $_SESSION['error'] = "File is too Big!";
+            }
+         } else {
+            $_SESSION['error'] = "Error!";
+         }
+      } else {
+         $_SESSION['error'] = 'File not allowed!';
+      }
+   } else {
+      $_SESSION['error'] = 'Please choose an image!';
+   }
+}

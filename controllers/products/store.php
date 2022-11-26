@@ -7,13 +7,46 @@ require_once ROOT_PATH . 'controllers/helpers/helper.php';
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-    echo "<pre>";
-    print_r($_POST);
 
+    // Image Validation
     $image_name = $_FILES['image']['name'];
     $temp_name = $_FILES['image']['tmp_name'];
 
-    move_uploaded_file($temp_name, ROOT_PATH . 'assets/uploads/products/' . $image_name);
+    $f_type = $file['type'];
+    $f_tmp_name = $file['tmp_name'];
+    $f_error = $file['error'];
+    $f_size = $file['size'];
+
+    if ($image_name != '') {
+        $ext = pathinfo($image_name);
+        $original_name = $ext['filename'];
+        $original_extension = $ext['extension'];
+
+        $allowed = ["png", "jpg", "jpeg", "gif"];
+
+        if (in_array($original_extension, $allowed)) {
+
+            if ($f_error == 0) {
+                if ($f_size < 5000000) {
+                    $new_name = uniqid("", true) . "." . $original_extension;
+                    $destination = "imgs/" . $new_name;
+
+                    move_uploaded_file($temp_name, URL . 'assets/uploads/products/' . $image_name);
+                    
+                    $_SESSION['success'] = "File uploaded Syccessfuly!";
+                } else {
+                    $_SESSION['error'] = "File is too Big!";
+                }
+            } else {
+                $_SESSION['error'] = "Error!";
+            }
+        } else {
+            $_SESSION['error'] = 'File not allowed!';
+        }
+    } else {
+        $_SESSION['error'] = 'Please choose an image!';
+        return false;
+    }
 
     // store
     $name = sanetizeInput($_POST['name']);
@@ -23,20 +56,28 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if (requiredInput($name) && !is_numeric($name)) {
 
-        if (minInput($name, 3) && maxInput($name, 25)) {
+        if (
+            minInput($name, 3) && maxInput($name, 25)
+        ) {
 
             if (requiredInput($price) && is_numeric($price)) {
 
-                $sql = "INSERT INTO `products` (`name`, `price`, `category_id`, `description`, `image`)
-                    VALUES('$name','$price','$category_id','$description','$image_name') ";
+                if (requiredInput($description) && !is_numeric($description) && minInput($description, 3)) {
 
-                $result = insert($sql);
-                if ($result) {
-                    $_SESSION['success'] = 'Data Inserted Sucessfully';
-                    redirect('pages/products/index.php');
+                    $sql = "INSERT INTO `products` (`name`, `price`, `category_id`, `description`, `image`)
+                            VALUES('$name','$price','$category_id','$description','$image_name') ";
+
+                    $result = insert($sql);
+                    if ($result) {
+                        $_SESSION['success'] = 'Data Inserted Sucessfully';
+                        redirect('pages/products/create.php');
+                    } else {
+                        $_SESSION['error'] = "Error While Instering to Database";
+                        die(mysqli_info($conn));
+                    }
                 } else {
-                    $_SESSION['error'] = "Error While Instering to Database";
-                    die(mysqli_info($conn));
+                    $_SESSION['error'] = 'Description is Required! & Must be More than 20 chars';
+                    redirect('pages/products/create.php');
                 }
             } else {
                 $_SESSION['error'] = 'You Should Enter a Price';

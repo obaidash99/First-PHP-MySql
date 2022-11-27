@@ -7,11 +7,16 @@
 <?php
 
 $id = $_GET['id'];
-echo $id;
+
+echo "<pre>";
+print_r($_GET);
+
 $row = getRow("products", $id);
+
+
+echo $id;
 echo "<pre>";
 print_r($row);
-echo $row['name'];
 
 ?>
 

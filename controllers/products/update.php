@@ -58,10 +58,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                                     move_uploaded_file($temp_name, URL . 'assets/uploads/' . $image_name);
 
-                                    $sql = "INSERT INTO `products` (`name`, `price`, `category_id`, `description`, `image`)
-                                            VALUES('$name','$price','$category_id','$description','$image_name') ";
+                                    // $sql = "INSERT INTO `products` (`name`, `price`, `category_id`, `description`, `image`)
+                                    //         VALUES ('$name','$price','$category_id','$description','$image_name') ";
 
-                                    $result = insert($sql);
+                                    $sql = "UPDATE `products` SET (`name`, `price`, `category_id`, `description`, `image`) 
+                                            VALUES ('$name','$price','$category_id','$description','$image_name') WHERE `id` = '$id'";
+
+
+                                    $result = update($sql);
                                     if ($result) {
                                         $_SESSION['success'] = 'Data Inserted Sucessfully';
                                         redirect('pages/products/edit.php');

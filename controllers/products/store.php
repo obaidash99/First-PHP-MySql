@@ -82,7 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         $_SESSION['error'] = 'Please choose an image!';
                         redirect('pages/products/create.php');
                     }
-
                 } else {
                     $_SESSION['error'] = 'Description is Required! & Must be More than 20 chars';
                     redirect('pages/products/create.php');
